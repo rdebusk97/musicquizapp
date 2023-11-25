@@ -2,25 +2,22 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import { useContext } from 'react';
+import useAccessToken from '../hooks/use-accessToken';
 import SpotifyAPIContext from '../context/spotifyAPI';
 
 function SettingsPage() {
 
-    var token;
-    const { getAccessToken, getSearchResult } = useContext(SpotifyAPIContext);
+    const { getSearchResult } = useContext(SpotifyAPIContext);
+
+    const { accessToken, refreshAccessToken } = useAccessToken();
 
     const handleAccessTokenClick = () => {
-        const tokenPromise = getAccessToken();
-
-        tokenPromise.then((access_token) => {
-            token = access_token;
-        });
-    }
+        refreshAccessToken();
+    };
 
     const handleClick = () => {
         getSearchResult(
-            "HERE, THERE, AND EVERYWHERE",
-            token);
+            "IGOR");
     }
 
     return (

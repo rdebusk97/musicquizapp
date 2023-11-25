@@ -1,44 +1,15 @@
-import { useState, createContext } from 'react';
+import { createContext } from 'react';
 import axios from 'axios';
-import qs from 'qs';
+import useAccessToken from '../hooks/use-accessToken';
 
 const SpotifyAPIContext = createContext();
 
 function SpotifyAPIProvider({ children }) {
 
-    const [accessToken, setAccessToken] = useState("");
+    const { accessToken, refreshAccessToken } = useAccessToken();
 
-    const getAccessToken = async () => {
-        const headers = {
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            auth: {
-                username: '39010915c2474b30ac94944c91c75bc4',
-                password: '16eec700814546dba4cf58a9c2651ffa',
-            }
-        };
-        const data = {
-            grant_type: 'client_credentials',
-        };
-
-        try {
-            const response = await axios.post(
-                'https://accounts.spotify.com/api/token',
-                qs.stringify(data),
-                headers
-            );
-
-            const token = response.data.access_token;
-            console.log(token); //test
-            return token;
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const getSearchResult = async (searchTerm, accessToken) => {
+    const getSearchResult = async (searchTerm) => {
+        refreshAccessToken();
         const searchTermUnderscored = searchTerm.replace(/ /g, "_");
 
         try {          
@@ -51,7 +22,7 @@ function SpotifyAPIProvider({ children }) {
             if (response.status === 200) {
                 const searchResultData = response.data;
                 console.log(searchResultData.tracks.items);
-                return searchResultData.items;
+                return searchResultData.tracks.items;
             } else {
                 throw new Error('Request to Spotify API failed.');
             }
@@ -63,8 +34,6 @@ function SpotifyAPIProvider({ children }) {
     }
 
     const options = {
-        accessToken,
-        getAccessToken,
         getSearchResult
     };
 
