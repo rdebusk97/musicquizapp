@@ -12,8 +12,8 @@ function SpotifyAPIProvider({ children }) {
         refreshAccessToken();
         const searchTermUnderscored = searchTerm.replace(/ /g, "_");
 
-        try {          
-            const response = await axios.get(`https://api.spotify.com/v1/search?query=${searchTermUnderscored}&type=track&market=us&limit=5&offset=0`, {
+        try {
+            const response = await axios.get(`https://api.spotify.com/v1/search?query=${searchTermUnderscored}&type=track&market=us&limit=10&offset=0`, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                 },

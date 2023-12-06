@@ -1,33 +1,44 @@
+import { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Button from '@mui/material/Button';
-import { useContext } from 'react';
-import useAccessToken from '../hooks/use-accessToken';
 import SpotifyAPIContext from '../context/spotifyAPI';
+import AutocompleteResult from '../components/AutocompleteResult';
 
 function SettingsPage() {
 
     const { getSearchResult } = useContext(SpotifyAPIContext);
+    const [searchData, setSearchData] = useState([]);
 
-    const { accessToken, refreshAccessToken } = useAccessToken();
+    const [quizSongs, setQuizSongs] = useState([]);
 
-    const handleAccessTokenClick = () => {
-        refreshAccessToken();
-    };
+    const handleChange = (event) => {
+        const term = event.target.value;
 
-    const handleClick = () => {
-        getSearchResult(
-            "IGOR");
+        if (!term || term === "") {
+            return;
+        }
+
+        getSearchResult(term).then((data) => {
+            setSearchData(data);
+        }).catch((error) => {
+            console.error(error.message);
+        });
     }
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleAccessTokenClick}>Get new Access Token</Button>
-            <Button variant="outlined" onClick={handleClick}>test SEARCH</Button>
-            <Autocomplete options={['1', '2']}
-                renderInput={(params) => <TextField {...params} label="Search" />} />
+            <div>
+                <Autocomplete sx={{ width: 500 }} options={searchData.map((option) => { return option; })} 
+                    onInputChange={handleChange}
+                    renderInput={(params) => <TextField {...params} label="Search" />} 
+                    renderOption={(props, option) => <AutocompleteResult {...props} option={option}/>}
+                    getOptionLabel={(option) => option.name + " - " + option.artists[0].name}
+                    getOptionKey={(option) => option.id}/>
+            </div>
+            <div>
+                {quizSongs.map((quizSong) => { return quizSong })}
+            </div>
         </div>
-
     )
 };
 
