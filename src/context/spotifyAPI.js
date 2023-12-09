@@ -21,7 +21,6 @@ function SpotifyAPIProvider({ children }) {
 
             if (response.status === 200) {
                 const searchResultData = response.data;
-                console.log(searchResultData.tracks.items);
                 return searchResultData.tracks.items;
             } else {
                 throw new Error('Request to Spotify API failed.');

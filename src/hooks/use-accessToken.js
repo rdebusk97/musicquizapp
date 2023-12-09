@@ -27,11 +27,8 @@ const useAccessToken = () => {
                 qs.stringify(data),
                 headers
             );
-    
-            const token = response.data.access_token;
-
-            console.log("(LOG) Token generated: " + token); //TODO remove
-            return token;
+            
+            return response.data.access_token;
         } catch (error) {
             console.log(error);
         }
