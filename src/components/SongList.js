@@ -3,33 +3,27 @@ import SongsContext from '../context/songs';
 import SongCard from '../components/SongCard';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/Button';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import Typography from '@mui/material/Typography';
 
 function SongList()
 {
-    const { songs, deleteSongById } = useContext(SongsContext);
-
-    const handleDeleteClick = (id) =>
-    {
-        deleteSongById(id);
-    };
+    const { songs } = useContext(SongsContext);
 
     const renderedSongs = songs.map((song) => {
         return (
-            <ListItem style={{ display: 'flex' }}>
-                <SongCard song={song} style={{width: '500px'}}/>
-                <ListItemIcon>
-                    <DeleteForeverIcon/>
-                </ListItemIcon>
+            <ListItem style={{ display: 'flex' }} key={song.uri}>
+                <SongCard song={song} isList={true} style={{width: '500px'}}/>
             </ListItem>
         );
     });
 
     return (
-        <List>
-            {renderedSongs}
-        </List>
+        <div style={ { margin: '20px 0px' }}>
+            <Typography variant="h4" gutterBottom>Song List</Typography>
+            <List>
+                {renderedSongs}
+            </List>
+        </div>
     );
 };
 

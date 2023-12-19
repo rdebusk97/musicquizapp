@@ -33,13 +33,8 @@ function App() {
     }
   }, []);
 
-  const openSidebar = () => {
-    setIsSidebarOpen(true);
-  }
-  
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-  }
+  const openSidebar = () => setIsSidebarOpen(true); 
+  const closeSidebar = () => setIsSidebarOpen(false);
 
   return (
     <div className="grid-container"> 

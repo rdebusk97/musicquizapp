@@ -13,7 +13,7 @@ function SpotifyAPIProvider({ children }) {
         const searchTermUnderscored = searchTerm.replace(/ /g, "_");
 
         try {
-            const response = await axios.get(`https://api.spotify.com/v1/search?query=${searchTermUnderscored}&type=track&market=us&limit=10&offset=0`, {
+            const response = await axios.get(`https://api.spotify.com/v1/search?query=${searchTermUnderscored}&type=track&market=us&limit=10&offset=0&market=US`, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                 },
@@ -21,6 +21,7 @@ function SpotifyAPIProvider({ children }) {
 
             if (response.status === 200) {
                 const searchResultData = response.data;
+                //console.log(searchResultData.tracks.items);
                 return searchResultData.tracks.items;
             } else {
                 throw new Error('Request to Spotify API failed.');
