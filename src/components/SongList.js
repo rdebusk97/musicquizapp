@@ -1,26 +1,31 @@
+import { List, ListItem, Button, Typography } from '@mui/material';
 import { useContext } from 'react';
 import SongsContext from '../context/songs';
 import SongCard from '../components/SongCard';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 
 function SongList()
 {
-    const { songs } = useContext(SongsContext);
+    const { songs, setSongs } = useContext(SongsContext);
+
+    const handleButtonClick = () => {
+        setSongs([]);
+    }
 
     const renderedSongs = songs.map((song) => {
         return (
-            <ListItem style={{ display: 'flex' }} key={song.uri}>
-                <SongCard song={song} isList={true} style={{width: '500px'}}/>
+            <ListItem style={{ display: 'flex' }} key={song.id}>
+                <SongCard song={song} isList={true} style={{width: '450px'}}/>
             </ListItem>
         );
     });
 
     return (
-        <div style={ { margin: '20px 0px' }}>
-            <Typography variant="h4" gutterBottom>Song List</Typography>
-            <List>
+        <div>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <Typography variant="h4">Song List</Typography>
+                <Button variant="outlined" size="large" onClick={handleButtonClick}>Delete All</Button>
+            </div>
+            <List sx={{maxHeight: '500px', overflow: 'auto'}}>
                 {renderedSongs}
             </List>
         </div>

@@ -6,10 +6,23 @@ function SongsProvider({ children }) {
     const [songs, setSongs] = useState([]);
 
     const addSong = (song) => {
+        if (songs.includes(song)) {
+            return;
+        }
+
         const updatedSongs = [
             ...songs,
             song
         ];
+        setSongs(updatedSongs);
+    }
+
+    const addSongRange = (songRange) => {
+        const updatedSongs = [
+            ...songs,
+            ...songRange
+        ];
+
         setSongs(updatedSongs);
     }
 
@@ -23,7 +36,7 @@ function SongsProvider({ children }) {
     }
 
     return (
-        <SongsContext.Provider value={{ songs, addSong, deleteSongById }}>
+        <SongsContext.Provider value={{ songs, setSongs,addSong, addSongRange, deleteSongById }}>
             {children}
         </SongsContext.Provider>
     );

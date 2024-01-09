@@ -1,17 +1,13 @@
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { useContext } from 'react';
 import SongsContext from '../context/songs';
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardMedia from '@mui/material/CardMedia';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 function SongCard({ song, isList, ...otherStyling }) {
 
     const trackName = song.name;
     const artistName = song.artists[0].name;
-    const imageURL = song.album.images[0].url;
+    const imageURL = song.album.images[0]?.url || "https://cdn-icons-png.flaticon.com/128/13018/13018321.png";
 
     const { deleteSongById } = useContext(SongsContext);
     const handleDeleteClick = () => deleteSongById(song.id);
@@ -19,7 +15,7 @@ function SongCard({ song, isList, ...otherStyling }) {
     return (
         <Card {...otherStyling} sx={{ display: 'flex' }}>
             <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                <CardContent sx={{ flex: '1 0 auto', width: '60%' }}>
+                <CardContent sx={{ flex: '1 0 auto', width: '50%' }}>
                     <Typography component="div" variant="h5">
                         {trackName}
                     </Typography>
