@@ -1,6 +1,7 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-gap: 10px;
-    align-items: start;
+.baseContainer {
+    display: flex;
+}
+
+.sidebar {
+    margin-right: 5px;
 }

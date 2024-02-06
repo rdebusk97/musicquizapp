@@ -1,9 +1,10 @@
+import '../styles/SongList.css';
 import { List, ListItem, Button, Typography } from '@mui/material';
 import { useContext } from 'react';
 import SongsContext from '../context/songs';
 import SongCard from '../components/SongCard';
 
-function SongList()
+function SongList({ isEditable })
 {
     const { songs, setSongs } = useContext(SongsContext);
 
@@ -13,17 +14,25 @@ function SongList()
 
     const renderedSongs = songs.map((song) => {
         return (
-            <ListItem style={{ display: 'flex' }} key={song.id}>
-                <SongCard song={song} isList={true} style={{width: '450px'}}/>
+            <ListItem key={song.id}>
+                <SongCard song={song} isEditable={isEditable}/>
             </ListItem>
         );
     });
 
+    const renderEditableOption = (
+        <Button variant="outlined" size="large" color="inherit" onClick={handleButtonClick}>
+            Delete All
+        </Button>
+    );
+
     return (
         <div>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Typography variant="h4">Song List</Typography>
-                <Button variant="outlined" size="large" onClick={handleButtonClick}>Delete All</Button>
+            <div className="songListHeader">
+                <Typography variant="h4">
+                    Song List
+                </Typography>
+                {isEditable && renderEditableOption}
             </div>
             <List sx={{maxHeight: '500px', overflow: 'auto'}}>
                 {renderedSongs}

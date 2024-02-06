@@ -5,10 +5,13 @@ import SongPlayer from '../components/SongPlayer';
 function QuizPage()
 {
     const { songs } = useContext(SongsContext);
-    const audioSource = songs[0].preview_url;
+    const hasSongs = songs.length !== 0;
 
     return (
-        <SongPlayer audioSrc={audioSource}/>
+        <div>
+            {!hasSongs && "No songs selected."}
+            {hasSongs && <SongPlayer songs={songs} controls/>}
+        </div>
     );
 };
 

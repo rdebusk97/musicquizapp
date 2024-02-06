@@ -1,0 +1,16 @@
+.songInformation {
+    display: flex;
+}
+
+.controls {
+    display: block;
+    justify-content: center;
+    padding: 10px;
+}
+
+.baseBorder {
+    padding: 20px;
+    width: 350px;
+    border: 2px solid green;
+    border-radius: 20px;
+}

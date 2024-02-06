@@ -1,3 +1,4 @@
+import '../styles/SongImporter.css';
 import { Button, TextField } from '@mui/material';
 import { useContext, useState } from 'react';
 import SpotifyAPIContext from '../context/spotifyAPI';
@@ -15,7 +16,7 @@ function SongImporter() {
         try
         {
             var afterPlaylist = playlistURL.split('/playlist/')[1];
-            var playlistId = afterPlaylist.split('?')[0];   
+            var playlistId = afterPlaylist.split('?')[0];
     
             const playlistData = await getPlaylist(playlistId);
             const allTracks = playlistData.map(x => x.track).flat().filter(x => x.preview_url !== null);
@@ -28,10 +29,10 @@ function SongImporter() {
     };
 
     return (
-        <div style={{ display: 'flex', marginTop: '20px' }}>
-            <TextField sx={{width: '400px'}} id="standard-basic" label="Import URL" 
+        <div className="baseContainer">
+            <TextField sx={{width: '450px'}} label="Import URL" 
                 variant="outlined" onChange={handleChange} value={playlistURL}/>
-            <Button variant="outlined" size="large" onClick={handleButtonClick}>Import</Button>
+            <Button variant="outlined" size="large" color="inherit" onClick={handleButtonClick}>Import</Button>
         </div> 
     );
 };

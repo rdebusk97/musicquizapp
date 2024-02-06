@@ -21,7 +21,7 @@ function SongSearcher() {
         }
 
         getSearchResult(term).then((data) => {
-            setSearchData(data);
+            setSearchData(data.filter(x => x.preview_url !== null));
         }).catch((error) => {
             console.error(error.message);
         });
@@ -29,14 +29,14 @@ function SongSearcher() {
 
     return (
         <div style={{ display: 'flex' }}>
-            <Autocomplete sx={{ width: 400 }} options={searchData.map((option) => { return option; })} 
+            <Autocomplete sx={{ width: '450px' }} options={searchData.map((option) => { return option; })} 
                 onInputChange={handleInputChange} onChange={handleChange} value={selectedSong}
                 renderInput={(params) => <TextField {...params} label="Search" />} 
                 renderOption={(props, option) => <SongCard {...props} song={option}/>}
                 getOptionLabel={(option) => option.name + " - " + option.artists[0].name}
                 getOptionKey={(option) => option.id }
             />
-            <Button variant="outlined" size="large" onClick={handleButtonClick}>Add</Button>               
+            <Button variant="outlined" size="large" color="inherit" onClick={handleButtonClick}>Add</Button>               
         </div>
     )
 };

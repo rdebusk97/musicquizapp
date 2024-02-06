@@ -1,24 +1,10 @@
-import { Link } from 'react-router-dom';
 import React from 'react';
-import HomeIcon from '@mui/icons-material/Home';
-import QuizIcon from '@mui/icons-material/Quiz';
-import SettingsIcon from '@mui/icons-material/Settings';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
+import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
-function Sidebar({ open, closeSidebar })
-{
-  const sidebarOptions = [
-    createSidebarOption('Home', <HomeIcon/>),
-    createSidebarOption('Settings', <SettingsIcon/>),
-    createSidebarOption('Quiz', <QuizIcon/>)
-  ];
-
+function Sidebar({ open, closeSidebar, options }) {
+  
   const closeButton = (
     <ListItem onClick={closeSidebar}>
       <ListItemButton>
@@ -27,7 +13,7 @@ function Sidebar({ open, closeSidebar })
     </ListItem>
   );
 
-  const options = sidebarOptions.map((option) => {
+  const sidebarOptions = options.map((option) => {
     return (
         <ListItem key={option.text} onClick={closeSidebar}>
           <Link to={`/${option.text !== 'Home' ? option.text.toLowerCase() : ''}`} style={linkStyle}>
@@ -45,7 +31,7 @@ function Sidebar({ open, closeSidebar })
   const allOptions = (
     <React.Fragment>
       {closeButton}
-      {options}
+      {sidebarOptions}
     </React.Fragment>
   );
 
@@ -64,9 +50,5 @@ const linkStyle = {
   textDecoration: 'none',
   color: 'black',
 };
-
-function createSidebarOption(text, icon) {
-  return { text, icon };
-}
 
 export default Sidebar;
