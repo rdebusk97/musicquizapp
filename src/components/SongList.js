@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import SongsContext from '../context/songs';
 import SongCard from '../components/SongCard';
 
-function SongList({ isEditable })
+function SongList({ config, isEditable })
 {
     const { songs, setSongs } = useContext(SongsContext);
 
@@ -15,10 +15,16 @@ function SongList({ isEditable })
     const renderedSongs = songs.map((song) => {
         return (
             <ListItem key={song.id}>
-                <SongCard song={song} isEditable={isEditable}/>
+                <SongCard song={song} config={config} isEditable={isEditable}/>
             </ListItem>
         );
     });
+
+    const fullList = (
+        <List sx={{maxHeight: '500px', overflow: 'auto', marginTop: '10px'}}>
+            {renderedSongs}
+        </List>
+    );
 
     const renderEditableOption = (
         <Button variant="outlined" size="large" color="inherit" onClick={handleButtonClick}>
@@ -34,9 +40,7 @@ function SongList({ isEditable })
                 </Typography>
                 {isEditable && renderEditableOption}
             </div>
-            <List sx={{maxHeight: '500px', overflow: 'auto'}}>
-                {renderedSongs}
-            </List>
+            {(songs.length > 0 && fullList) || <List>Add songs!</List>}
         </div>
     );
 };

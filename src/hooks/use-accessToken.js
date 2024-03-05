@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import qs from 'qs';
 
-const useAccessToken = () => {
+function useAccessToken() {
     
     const [accessToken, setAccessToken] = useState(null);
 
@@ -46,7 +46,7 @@ const useAccessToken = () => {
         };
 
         initializeAccessToken();
-    }, []); // Run only once when the component mounts
+    }, []);
 
     return { accessToken, refreshAccessToken };
 }

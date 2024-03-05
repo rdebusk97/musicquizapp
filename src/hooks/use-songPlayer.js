@@ -1,13 +1,12 @@
-import { useState, useContext, useRef } from 'react';
-import SongsContext from '../context/songs';
+import { useState } from 'react';
 
-function useSongPlayer() {
-
-    const { songs } = useContext(SongsContext);
+function useSongPlayer(songs) {
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [songIndex, setSongIndex] = useState(0);
-    const [volume, setVolume] = useState(.4);
+    const [volume, setVolume] = useState(.1);
+    const [duration, setDuration] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
 
     const previous = () => { 
         songIndex === 0 ? setSongIndex(songs.length - 1) : setSongIndex(songIndex - 1);
@@ -24,13 +23,28 @@ function useSongPlayer() {
         setIsPlaying(!isPlaying);
     }
 
+    const updatePlaying = (value) => { setIsPlaying(value);}
+    const updateCurrentTime = (audioRef) => { setCurrentTime(audioRef.current.currentTime); }
+    const updateDuration = (audioRef) => { setDuration(audioRef.current.duration); }
+    const updateVolume = (audioRef, newVolume) => { 
+        audioRef.current.volume = newVolume;
+        setVolume(newVolume); 
+    }
+
     return {
         songs,
         songIndex,
         isPlaying,
+        currentTime,
+        duration,
+        volume,
         previous,
         next,
-        playPause
+        playPause,
+        updateCurrentTime,
+        updateDuration,
+        updateVolume,
+        updatePlaying
     };
 }
 

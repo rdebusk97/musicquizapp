@@ -4,14 +4,14 @@ import SongCard from '../components/SongCard';
 import SongsContext from '../context/songs';
 import SpotifyAPIContext from '../context/spotifyAPI';
 
-function SongSearcher() {
+function SongSearcher({ config }) {
     const { addSong } = useContext(SongsContext);
     const { getSearchResult } = useContext(SpotifyAPIContext);
 
     const [searchData, setSearchData] = useState([]);
     const [selectedSong, setSelectedSong] = useState(null);
 
-    const handleChange = (event, value) => setSelectedSong(value);
+    const handleChange = (_, value) => setSelectedSong(value);
     const handleButtonClick = () => selectedSong && addSong(selectedSong);
     const handleInputChange = (event) => {
         const term = event.target.value;
@@ -32,7 +32,7 @@ function SongSearcher() {
             <Autocomplete sx={{ width: '450px' }} options={searchData.map((option) => { return option; })} 
                 onInputChange={handleInputChange} onChange={handleChange} value={selectedSong}
                 renderInput={(params) => <TextField {...params} label="Search" />} 
-                renderOption={(props, option) => <SongCard {...props} song={option}/>}
+                renderOption={(props, option) => <SongCard {...props} song={option} config={config}/>}
                 getOptionLabel={(option) => option.name + " - " + option.artists[0].name}
                 getOptionKey={(option) => option.id }
             />
