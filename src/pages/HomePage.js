@@ -1,6 +1,6 @@
 function HomePage() {
     return (
-        <div style={{width: '500px'}}>
+        <div>
             <h2>Welcome to the home page of the Song Quiz app.</h2>
             <h3>
                 This application interfaces with Spotify. 

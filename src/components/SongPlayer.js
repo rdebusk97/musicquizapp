@@ -15,7 +15,6 @@ function SongPlayer({ songs, config, controls, autoPlay }) {
 
     useEffect(() => {
         audioRef.current.volume = volume;
-
         if (autoPlay) {
             updatePlaying(true);
             audioRef.current.play();
@@ -85,7 +84,7 @@ function SongPlayer({ songs, config, controls, autoPlay }) {
     const testSwitch = <FormControlLabel control={<Switch checked={showSong} onClick={testButton}/>} label="Show Song" sx={{ justifyContent: 'center' }}/>;
 
     const allContent = (
-        <div>
+        <div style={{justifyContent: 'center'}}>
             <audio ref={audioRef} src={config.audioSrc(songs, songIndex)} autoPlay={false}
                 onPlaying={() => updateDuration(audioRef)} onTimeUpdate={() => { updateCurrentTime(audioRef); }} onPlay={() => { updateDuration(audioRef); }}></audio>
             {testSwitch}

@@ -1,11 +1,13 @@
-import SongPlayer from '../components/SongPlayer';
-import SongGuesser from '../components/SongGuesser';
-import useSettings from '../hooks/use-settings';
 import { useContext } from 'react';
+import SongPlayer from '../components/SongPlayer';
+import useSettings from '../hooks/use-settings';
 import SongsContext from '../context/songs';
 
 function QuizPage()
 {
+    const { randomized, autoPlay } = useSettings();
+    const { songs } = useContext(SongsContext);
+    
     const config = {
         audioSrc: (songs, songIndex) => songs[songIndex]?.preview_url,
         name: (songs, songIndex) => songs[songIndex]?.name,
@@ -13,14 +15,10 @@ function QuizPage()
         albumCover: (songs, songIndex) => songs[songIndex]?.album?.images[0]?.url
     };
 
-    const { randomized, autoPlay } = useSettings();
-    const { songs } = useContext(SongsContext);
+    if (songs.length === 0) { return <h2>No songs selected.</h2>; }
 
     return (
-        <div>
-            <SongPlayer songs={randomized ? shuffleSongs(songs) : songs} config={config} controls autoPlay={autoPlay}/>
-            <SongGuesser multipleChoice/>
-        </div>
+        <SongPlayer songs={randomized ? shuffleSongs(songs) : songs} config={config} controls autoPlay={autoPlay}/>
     );
 };
 

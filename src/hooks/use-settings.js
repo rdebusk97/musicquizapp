@@ -6,9 +6,13 @@ function useSettings() {
     const initialRandomized = JSON.parse(localStorage.getItem('randomized')) || false;
     const initialAutoPlay = JSON.parse(localStorage.getItem('autoplay')) || false;
 
+    //const initialUser = JSON.parse(localStorage.getItem('user')) || "";
+    //const initialPass = JSON.parse(localStorage.getItem('pass')) || "";
+
     const [randomized, setRandomized] = useState(initialRandomized);
     const [autoPlay, setAutoPlay] = useState(initialAutoPlay);
-    const [songGuessingOption, setSongGuessingOption] = useState(songGuessingOptions.None);
+    //const [user, setUser] = useState(initialUser);
+    //const [pass, setPass] = useState(initialPass);
 
     const updateRandomized = () => { 
         localStorage.setItem('randomized', JSON.stringify(!randomized));
@@ -27,11 +31,5 @@ function useSettings() {
         updateAutoPlay
     };
 }
-
-const songGuessingOptions = {
-    None: 'None',
-    ShortAnswer: 'Short Answer',
-    MultipleChoice: 'Multiple Choice'
-};
 
 export default useSettings;

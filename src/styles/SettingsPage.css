@@ -1,0 +1,9 @@
+.base {
+    display: flex;
+    padding: 20px;
+}
+
+.section {
+    display: block;
+    width: 250px;
+}

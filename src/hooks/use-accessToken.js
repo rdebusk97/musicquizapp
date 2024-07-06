@@ -13,8 +13,8 @@ function useAccessToken() {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             auth: {
-                username: '39010915c2474b30ac94944c91c75bc4',
-                password: '4c3e1e519c7145089804f86b64df109a',
+                username: '', // Insert Spotify client ID
+                password: '', // Insert Spotify client secret
             }
         };
         const data = {
